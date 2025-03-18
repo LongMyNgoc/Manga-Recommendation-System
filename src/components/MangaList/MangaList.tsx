@@ -4,12 +4,24 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MangaCard from "../MangaCard/MangaCard";
 
+// Định nghĩa kiểu dữ liệu cho Manga
 interface Manga {
   id: string;
   title: string;
   status: string;
   tags: string[];
   coverUrl: string;
+}
+
+// Định nghĩa kiểu dữ liệu cho response từ API
+interface MangaResponse {
+  attributes: {
+    title: { en: string };
+    status: string;
+    tags: { attributes: { name: { en: string } } }[];
+  };
+  relationships: { type: string; attributes: { fileName: string } }[];
+  id: string;
 }
 
 const MangaList: React.FC = () => {
@@ -25,6 +37,7 @@ const MangaList: React.FC = () => {
       try {
         const allMangas: Manga[] = [];
 
+        // Lặp qua các trang dữ liệu
         for (let i = 0; i < 5; i++) {
           const response = await axios.get("https://api.mangadex.org/manga", {
             params: { limit: 100, offset: i * 100, includes: ["cover_art"] },
@@ -33,12 +46,13 @@ const MangaList: React.FC = () => {
 
           if (signal.aborted) return;
 
-          const fetchedMangas = response.data.data.map((manga: any) => {
+          // Xử lý dữ liệu API và map lại thành đối tượng Manga
+          const fetchedMangas = response.data.data.map((manga: MangaResponse) => {
             const title = manga.attributes.title?.en || "No title available";
             const status = manga.attributes.status || "Unknown";
-            const tags = manga.attributes.tags.map((tag: any) => tag.attributes.name.en);
+            const tags = manga.attributes.tags.map((tag) => tag.attributes.name.en);
 
-            const coverRel = manga.relationships.find((rel: any) => rel.type === "cover_art");
+            const coverRel = manga.relationships.find((rel) => rel.type === "cover_art");
             const coverUrl = coverRel
               ? `https://uploads.mangadex.org/covers/${manga.id}/${coverRel.attributes.fileName}.256.jpg`
               : "https://via.placeholder.com/100x150";
@@ -67,6 +81,8 @@ const MangaList: React.FC = () => {
     };
 
     fetchMangas();
+
+    // Hủy yêu cầu khi component bị unmount hoặc hiệu ứng bị thay đổi
     return () => controller.abort();
   }, []);
 
