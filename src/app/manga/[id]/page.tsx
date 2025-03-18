@@ -1,30 +1,28 @@
 "use client";
 
-import Image from 'next/image';
+import { useParams } from 'next/navigation'; // Import useParams từ next/navigation
 import { useState, useEffect } from 'react';
-
-interface PageProps {
-  params: { id: string };
-}
+import Image from 'next/image';
 
 interface Manga {
   attributes: {
     title: { en: string };
     status: string;
-    tags: { attributes: { name: { en: string } } }[];
+    tags: { attributes: { name: { en: string } } }[]; 
   };
-  relationships: { type: string; attributes: { fileName: string } }[];
+  relationships: { type: string; attributes: { fileName: string } }[]; 
 }
 
-const MangaDetail: React.FC<PageProps> = ({ params }) => {
-  const { id } = params;
-
+const MangaDetail: React.FC = () => {
+  const { id } = useParams<{ id: string }>(); // Lấy id từ params và định nghĩa kiểu là string
   const [manga, setManga] = useState<Manga | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchMangaDetails = async () => {
       try {
+        if (!id) return; // Nếu id không tồn tại thì không gọi API
+
         const response = await fetch(
           `https://api.mangadex.org/manga/${id}?includes[]=cover_art`,
           {
@@ -43,11 +41,10 @@ const MangaDetail: React.FC<PageProps> = ({ params }) => {
       }
     };
 
-    fetchMangaDetails();
-  }, [id]); // fetch lại khi `id` thay đổi
+    fetchMangaDetails(); // Gọi API khi id có giá trị
+  }, [id]);
 
   if (error) return <p>{error}</p>;
-
   if (!manga) return <p>Loading...</p>;
 
   const title = manga.attributes.title?.en || 'No title available';
