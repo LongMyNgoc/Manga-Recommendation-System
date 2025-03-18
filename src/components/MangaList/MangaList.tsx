@@ -1,0 +1,89 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import MangaCard from "../MangaCard/MangaCard";
+
+interface Manga {
+  id: string;
+  title: string;
+  status: string;
+  tags: string[];
+  coverUrl: string;
+}
+
+const MangaList: React.FC = () => {
+  const [mangas, setMangas] = useState<Manga[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    const fetchMangas = async () => {
+      try {
+        const allMangas: Manga[] = [];
+
+        for (let i = 0; i < 5; i++) {
+          const response = await axios.get("https://api.mangadex.org/manga", {
+            params: { limit: 100, offset: i * 100, includes: ["cover_art"] },
+            signal,
+          });
+
+          if (signal.aborted) return;
+
+          const fetchedMangas = response.data.data.map((manga: any) => {
+            const title = manga.attributes.title?.en || "No title available";
+            const status = manga.attributes.status || "Unknown";
+            const tags = manga.attributes.tags.map((tag: any) => tag.attributes.name.en);
+
+            const coverRel = manga.relationships.find((rel: any) => rel.type === "cover_art");
+            const coverUrl = coverRel
+              ? `https://uploads.mangadex.org/covers/${manga.id}/${coverRel.attributes.fileName}.256.jpg`
+              : "https://via.placeholder.com/100x150";
+
+            return { id: manga.id, title, status, tags, coverUrl };
+          });
+
+          allMangas.push(...fetchedMangas);
+        }
+
+        // Lọc Manga trùng lặp theo `id` bằng Set hoặc Map
+        const uniqueMangas = Array.from(new Map(allMangas.map(m => [m.id, m])).values());
+
+        // Đảm bảo rằng các manga không bị trùng lặp nữa
+        setMangas(uniqueMangas);
+      } catch (err: any) {
+        if (axios.isCancel(err)) {
+          console.log("Request bị hủy:", err.message);
+        } else {
+          console.error(err);
+          setError("Failed to fetch mangas");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMangas();
+    return () => controller.abort();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
+  return (
+    <div>
+      <h1>Manga List</h1>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
+        {mangas.map((manga) => (
+          // Đảm bảo key là duy nhất, sử dụng `id`
+          <MangaCard key={manga.id} {...manga} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default MangaList;
