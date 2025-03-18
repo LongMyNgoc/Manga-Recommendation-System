@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from 'next/image';
 
 interface MangaCardProps {
   id: string;
@@ -26,7 +27,7 @@ const MangaCard: React.FC<MangaCardProps> = ({ id, title, status, tags, coverUrl
         onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
         onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
       >
-        <img src={coverUrl} alt={title} width="180" height="250" style={{ objectFit: "cover" }} />
+        <Image src={coverUrl} alt={title} width="180" height="250" style={{ objectFit: "cover" }} />
         <div style={{ padding: "8px", background: "#fff" }}>
           <h3 style={{ fontSize: "14px", marginBottom: "4px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
             {title}

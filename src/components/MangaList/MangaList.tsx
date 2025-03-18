@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MangaCard from "../MangaCard/MangaCard";
@@ -58,7 +56,7 @@ const MangaList: React.FC = () => {
         if (axios.isCancel(err)) {
           console.log("Request bị hủy:", err.message);
         } else {
-          console.error(err);
+          console.error("Error fetching data:", err);
           setError("Failed to fetch mangas");
         }
       } finally {
