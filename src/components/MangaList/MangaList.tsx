@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MangaCard from "../MangaCard/MangaCard";
 
-// Định nghĩa kiểu dữ liệu cho Manga
 interface Manga {
   id: string;
   title: string;
@@ -13,7 +12,6 @@ interface Manga {
   coverUrl: string;
 }
 
-// Định nghĩa kiểu dữ liệu cho response từ API
 interface MangaResponse {
   attributes: {
     title: { en: string };
@@ -37,8 +35,7 @@ const MangaList: React.FC = () => {
       try {
         const allMangas: Manga[] = [];
 
-        // Lặp qua các trang dữ liệu
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 1; i++) {
           const response = await axios.get("https://api.mangadex.org/manga", {
             params: { limit: 100, offset: i * 100, includes: ["cover_art"] },
             signal,
@@ -46,7 +43,6 @@ const MangaList: React.FC = () => {
 
           if (signal.aborted) return;
 
-          // Xử lý dữ liệu API và map lại thành đối tượng Manga
           const fetchedMangas = response.data.data.map((manga: MangaResponse) => {
             const title = manga.attributes.title?.en || "No title available";
             const status = manga.attributes.status || "Unknown";
@@ -63,17 +59,18 @@ const MangaList: React.FC = () => {
           allMangas.push(...fetchedMangas);
         }
 
-        // Lọc Manga trùng lặp theo `id` bằng Set hoặc Map
         const uniqueMangas = Array.from(new Map(allMangas.map(m => [m.id, m])).values());
 
-        // Đảm bảo rằng các manga không bị trùng lặp nữa
         setMangas(uniqueMangas);
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (axios.isCancel(err)) {
           console.log("Request bị hủy:", err.message);
-        } else {
+        } else if (err instanceof Error) {
           console.error("Error fetching data:", err);
           setError("Failed to fetch mangas");
+        } else {
+          console.error("Unknown error:", err);
+          setError("Unknown error occurred");
         }
       } finally {
         setLoading(false);
@@ -82,7 +79,6 @@ const MangaList: React.FC = () => {
 
     fetchMangas();
 
-    // Hủy yêu cầu khi component bị unmount hoặc hiệu ứng bị thay đổi
     return () => controller.abort();
   }, []);
 
@@ -94,7 +90,6 @@ const MangaList: React.FC = () => {
       <h1>Manga List</h1>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
         {mangas.map((manga) => (
-          // Đảm bảo key là duy nhất, sử dụng `id`
           <MangaCard key={manga.id} {...manga} />
         ))}
       </div>
