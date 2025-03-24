@@ -17,9 +17,7 @@ const useFetchMangas = () => {
   useEffect(() => {
     const fetchMangas = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/mangas", {
-          params: { limit: 100, offset: 0 },
-        });
+        const response = await axios.get("http://localhost:9000/mangas"); // ❌ Không truyền limit nữa
 
         setMangas(response.data.mangas);
       } catch (err) {
