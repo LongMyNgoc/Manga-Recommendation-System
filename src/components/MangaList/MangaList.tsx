@@ -29,8 +29,8 @@ const MangaList: React.FC = () => {
 
       {/* Khung bao ngoài */}
       <div className="bg-white shadow-lg rounded-lg p-6 border border-gray-200 w-full">
-        {/* Lưới hiển thị manga */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6">
+        {/* Lưới hiển thị manga, căn giữa các item trong grid */}
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6 justify-items-center">
           {mangas.map((manga) => (
             <MangaCard key={manga.id} {...manga} />
           ))}
