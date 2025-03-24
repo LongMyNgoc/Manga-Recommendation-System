@@ -9,12 +9,8 @@ interface Manga {
   author: string;
   artist: string;
   year: string;
-  volumeCount: string;
-  chapterCount: string;
-  serialization: string;
   publicationDemographic: string;
   originalLanguage: string;
-  languages: string[];
   createdAt: string;
   updatedAt: string;
   externalLinks: string[];
