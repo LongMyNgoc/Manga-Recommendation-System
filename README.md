@@ -45,4 +45,3 @@ Chúng tôi luôn chào đón sự đóng góp từ cộng đồng! Nếu bạn 
 
 ## Thông tin liên hệ
 📧 Email: longmyngoc2004@gmail.com  
-🌐 Website: https://manga-recommendation-system.vercel.app/
