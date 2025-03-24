@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Manga Recommendation System (Front-End)
 
-## Getting Started
+## Giới Thiệu
+Chào mừng bạn đến với **Manga Recommendation System**! Đây là một hệ thống gợi ý manga được xây dựng để giúp người dùng khám phá các manga thú vị từ MangaDex. Dự án này sử dụng thuật toán **Content-Based Filtering** để gợi ý manga dựa trên nội dung manga mà người dùng đang xem.
 
-First, run the development server:
+## Tính Năng Chính
+- **Hiển thị danh sách Manga**: Trang chủ sẽ hiển thị một danh sách tất cả các manga, cho phép người dùng duyệt qua các lựa chọn khác nhau.
+- **Xem thông tin chi tiết Manga**: Khi người dùng nhấp vào một manga bất kỳ, thông tin chi tiết về manga đó sẽ được hiển thị.
+- **Gợi ý truyện Manga**: Dựa trên nội dung của manga người dùng vừa chọn, hệ thống sẽ tự động gợi ý các manga tương tự, giúp người dùng tìm được các manga có chủ đề hoặc thể loại tương đồng.
 
+## Công Nghệ Sử Dụng
+- **Next.js**: Một framework mạnh mẽ của React cho việc phát triển ứng dụng web toàn diện.
+- **Vercel**: Nền tảng triển khai và chạy hệ thống của chúng tôi trên môi trường production, mang lại hiệu suất cao và trải nghiệm người dùng mượt mà.
+
+## Yêu Cầu Hệ Thống
+Trước khi bắt đầu, bạn cần phải cài đặt phiên bản **Node.js 20.17.0** (hoặc phiên bản tương thích) trên hệ thống của mình.
+
+### Cài đặt Node.js
+Để cài đặt Node.js, hãy truy cập vào trang chính của Node.js: [https://nodejs.org](https://nodejs.org) và tải xuống phiên bản **20.17.0** hoặc phiên bản tương thích.
+
+## Hướng Dẫn Cài Đặt & Chạy Dự Án
+
+### 1. Cài Đặt Dependencies
+Trước tiên, bạn cần cài đặt tất cả các thư viện phụ thuộc của dự án. Mở terminal và chạy lệnh sau:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Khởi động server phát triển
+Chạy lệnh sau để khởi động dự án:
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Hệ thống sẽ chạy trên **localhost**, bạn có thể truy cập bằng trình duyệt để kiểm tra giao diện và tính năng.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Liên kết hệ thống
+- **Back-End (GitHub)**: https://github.com/LongMyNgoc/Manga-Recommendation-System-BE.git
+- **Back-End (Render)**: https://manga-recommendation-system-be.onrender.com/
+- **Front-End (GitHub)**: https://github.com/LongMyNgoc/Manga-Recommendation-System.git
+- **Front-End (Vercel)**: https://manga-recommendation-system.vercel.app/
 
-## Learn More
+## Đóng góp & Phát triển
+Chúng tôi luôn chào đón sự đóng góp từ cộng đồng! Nếu bạn có bất kỳ ý tưởng, cải tiến hoặc báo lỗi nào, vui lòng gửi qua hệ thống quản lý mã nguồn của dự án. Bạn cũng có thể liên hệ trực tiếp với nhóm phát triển để thảo luận thêm.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Thông tin liên hệ
+📧 Email: longmyngoc2004@gmail.com  
+🌐 Website: https://manga-recommendation-system.vercel.app/
