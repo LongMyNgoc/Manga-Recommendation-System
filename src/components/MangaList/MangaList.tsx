@@ -7,16 +7,34 @@ import MangaCard from "../MangaCard/MangaCard";
 const MangaList: React.FC = () => {
   const { mangas, loading, error } = useFetchMangas();
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-xl font-semibold text-gray-700">Loading...</p>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-red-500 font-semibold">{error}</p>
+      </div>
+    );
 
   return (
-    <div>
-      <h1>Manga List</h1>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
-        {mangas.map((manga) => (
-          <MangaCard key={manga.id} {...manga} />
-        ))}
+    <div className="w-full px-6 py-8">
+      <h1 className="text-4xl font-bold text-gray-900 text-center mb-6">
+        📚 Welcome to <span className="text-blue-500">MangaDex</span>
+      </h1>
+
+      {/* Khung bao ngoài */}
+      <div className="bg-white shadow-lg rounded-lg p-6 border border-gray-200 w-full">
+        {/* Lưới hiển thị manga */}
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6">
+          {mangas.map((manga) => (
+            <MangaCard key={manga.id} {...manga} />
+          ))}
+        </div>
       </div>
     </div>
   );

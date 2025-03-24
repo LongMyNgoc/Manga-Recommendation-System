@@ -5,6 +5,19 @@ interface Manga {
   status: string;
   tags: string[];
   coverUrl: string;
+  description: string;
+  author: string;
+  artist: string;
+  year: string;
+  volumeCount: string;
+  chapterCount: string;
+  serialization: string;
+  publicationDemographic: string;
+  originalLanguage: string;
+  languages: string[];
+  createdAt: string;
+  updatedAt: string;
+  externalLinks: string[];
 }
 
 export const useMangaDetail = (id: string) => {
