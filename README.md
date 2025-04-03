@@ -10,7 +10,7 @@ Chào mừng bạn đến với **Manga Recommendation System**! Đây là một
 
 ## Công Nghệ Sử Dụng
 - **Next.js**: Một framework mạnh mẽ của React cho việc phát triển ứng dụng web toàn diện.
-- **Tailwind CSS**: 
+- **Tailwind CSS**: Một utility-first CSS framework giúp xây dựng giao diện nhanh chóng mà không cần viết CSS thủ công.
 - **Vercel**: Nền tảng triển khai và chạy hệ thống của chúng tôi trên môi trường production, mang lại hiệu suất cao và trải nghiệm người dùng mượt mà.
 
 ## Yêu Cầu Hệ Thống
