@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Manga Recommendation System",
   description: "Khám phá thế giới manga thú vị với Manga Recommendation System! Hệ thống sử dụng Content-Based Filtering để gợi ý manga từ MangaDex dựa trên nội dung bạn quan tâm.",
+  keywords: ["Manga", "Gợi ý manga", "MangaDex"],
 };
 
 export default function RootLayout({
