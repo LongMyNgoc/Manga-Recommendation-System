@@ -17,7 +17,7 @@ const useFetchMangas = () => {
   useEffect(() => {
     const fetchMangas = async () => {
       try {
-        const response = await axios.get("https://manga-recommendation-system-be.onrender.com/mangas"); // ❌ Không truyền limit nữa
+        const response = await axios.get("http://localhost:9000/mangas"); // ❌ Không truyền limit nữa
 
         setMangas(response.data.mangas);
       } catch (err) {

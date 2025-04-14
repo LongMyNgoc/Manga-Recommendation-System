@@ -1,4 +1,9 @@
 # Manga Recommendation System (Front-End)
+<p align="center">
+  <img src="public/assets/MangaList.png" alt="MangaList" width="100%" style="display: block; margin-bottom: 20px;">
+  <img src="public/assets/MangaDetail.png" alt="MangaDetail" width="100%" style="display: block; margin-bottom: 20px;">
+  <img src="public/assets/RecommentManga.png" alt="RecommentManga" width="100%" style="display: block;">
+</p>
 
 ## Giới Thiệu
 Chào mừng bạn đến với **Manga Recommendation System**! Đây là một hệ thống gợi ý manga được xây dựng để giúp người dùng khám phá các manga thú vị từ MangaDex. Dự án này sử dụng thuật toán **Content-Based Filtering** để gợi ý manga dựa trên nội dung manga mà người dùng đang xem.

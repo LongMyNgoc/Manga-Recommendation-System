@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import { useMangaDetail } from "./useMangaDetail";
+import MangaCard from "../MangaCard/MangaCard"; // Nhập MangaCard
 
 const MangaDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -42,7 +43,7 @@ const MangaDetail: React.FC = () => {
 
       {/* Grid Thông tin Manga (Chia 4 cột) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
-        {[
+        {[ 
           { label: "Status", value: manga.status },
           { label: "Year", value: manga.year },
           { label: "Author", value: manga.author },
@@ -80,6 +81,31 @@ const MangaDetail: React.FC = () => {
               </li>
             ))}
           </ul>
+        </div>
+      )}
+
+      {/* Manga Tương Đồng */}
+      {manga.similar.length > 0 && (
+        <div className="w-full px-6 py-8">
+          <h2 className="text-3xl font-bold text-gray-900 text-center mb-6">
+            Manga Tương Đồng
+          </h2>
+
+          {/* Container cho Manga Tương Đồng */}
+          <div className="bg-white shadow-lg rounded-lg p-6 border border-gray-200 w-full">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6 justify-items-center">
+              {manga.similar.map((similarManga) => (
+                <MangaCard
+                  key={similarManga.id}
+                  id={similarManga.id}
+                  title={similarManga.title}
+                  status={similarManga.status}
+                  tags={similarManga.tags}
+                  coverUrl={similarManga.coverUrl}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </div>

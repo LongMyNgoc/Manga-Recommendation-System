@@ -1,6 +1,15 @@
 import { useState, useEffect } from "react";
 
+interface SimilarManga {
+  id: string;
+  title: string;
+  status: string;
+  tags: string[];
+  coverUrl: string;
+}
+
 interface Manga {
+  id: string;
   title: string;
   status: string;
   tags: string[];
@@ -14,7 +23,9 @@ interface Manga {
   createdAt: string;
   updatedAt: string;
   externalLinks: string[];
+  similar: SimilarManga[];
 }
+
 
 export const useMangaDetail = (id: string) => {
   const [manga, setManga] = useState<Manga | null>(null);
@@ -25,7 +36,7 @@ export const useMangaDetail = (id: string) => {
       try {
         if (!id) return;
 
-        const response = await fetch(`https://manga-recommendation-system-be.onrender.com/mangas/${id}`, {
+        const response = await fetch(`http://localhost:9000/mangas/${id}`, {
           cache: "no-store",
         });
 
