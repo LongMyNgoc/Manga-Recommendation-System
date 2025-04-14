@@ -36,7 +36,7 @@ export const useMangaDetail = (id: string) => {
       try {
         if (!id) return;
 
-        const response = await fetch(`http://localhost:9000/mangas/${id}`, {
+        const response = await fetch(`https://manga-recommendation-system-be.onrender.com/mangas/${id}`, {
           cache: "no-store",
         });
 
