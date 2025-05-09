@@ -9,11 +9,6 @@ const nextConfig: NextConfig = {
         hostname: 'uploads.mangadex.org',
         pathname: '/**',
       },
-      {
-        protocol: 'https',
-        hostname: '**.mangadex.network', // chấp nhận subdomain như cmdxd98sb0x3yprd.mangadex.network
-        pathname: '/**',
-      },
     ],
   },
 };

@@ -32,7 +32,7 @@ const MangaDetail: React.FC = () => {
         />
         <div className="flex-1 text-center md:text-left">
           <h1 className="text-4xl font-bold text-gray-900 break-words">{manga.title}</h1>
-          <p className="text-gray-700 mt-2 max-h-40 overflow-y-auto whitespace-pre-line">
+          <p className="text-gray-700 mt-2 max-h-40 overflow-y-auto whitespace-pre-line break-words overflow-x-hidden">
             {manga.description}
           </p>
 
