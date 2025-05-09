@@ -93,7 +93,7 @@ const MangaDetail: React.FC = () => {
 
           {/* Container cho Manga Tương Đồng */}
           <div className="bg-white shadow-lg rounded-lg p-2 border border-gray-200 w-full">
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-2 justify-items-center">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-2 justify-items-center">
               {manga.similar.map((similarManga) => (
                 <MangaCard
                   key={similarManga.id}
