@@ -3,17 +3,16 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import useFetchChapterImages from "@/hooks/useFetchChapterImages";
 import ChapterNavigation from "@/components/MangaChapter/ChapterNavigation";
 
 interface Chapter {
-    id: string;
-    chapter: string;
-    title: string;
-    volume: string;
-    createdAt: string;
+  id: string;
+  chapter: string;
+  title: string;
+  volume: string;
+  createdAt: string;
 }
 
 const ChapterPage = () => {
@@ -56,11 +55,9 @@ const ChapterPage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
                 {images.map((image, index) => (
                     <div key={index} className="overflow-hidden rounded-lg shadow-lg">
-                        <Image
+                        <img
                             src={image}
                             alt={`Chapter ${id} - Page ${index + 1}`}
-                            width={600} // Thêm chiều rộng và chiều cao cố định
-                            height={400}
                             className="w-full h-auto object-cover"
                         />
                     </div>

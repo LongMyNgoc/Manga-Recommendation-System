@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
 
-interface FetchResponse {
-  images: string[]; // Định nghĩa rõ kiểu dữ liệu trả về
-}
-
 const useFetchChapterImages = (id: string) => {
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
@@ -16,17 +12,21 @@ const useFetchChapterImages = (id: string) => {
           `https://manga-recommendation-system-be.onrender.com/chapter/${id}/pages`
         );
         
-        // Kiểm tra xem API trả về có lỗi không
+        // Kiểm tra xem response có thành công không
         if (!response.ok) {
-          throw new Error("Không thể tải dữ liệu. Vui lòng thử lại sau.");
+          throw new Error(`Lỗi ${response.status}: Không thể tải ảnh.`);
         }
-        
-        const data: FetchResponse = await response.json();
-        setImages(data.images);
-      } catch (err) {
-        // Kiểm tra và xử lý lỗi, đảm bảo err có kiểu đúng
-        const errorMessage = err instanceof Error ? err.message : "Có lỗi xảy ra khi tải ảnh.";
-        setError(errorMessage);
+
+        const data = await response.json();
+        setImages(data);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          // Xử lý lỗi nếu err là instance của Error
+          setError(`Có lỗi xảy ra khi tải ảnh: ${err.message}`);
+        } else {
+          // Xử lý lỗi chung nếu không phải là Error
+          setError("Có lỗi không xác định xảy ra khi tải ảnh.");
+        }
       } finally {
         setLoading(false);
       }
