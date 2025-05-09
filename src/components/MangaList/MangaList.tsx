@@ -1,11 +1,21 @@
 "use client";
 
-import React from "react";
-import useFetchMangas from "./useFetchMangas"; // Import hook
+import React, { useState } from "react";
+import useFetchMangas from "./useFetchMangas";
 import MangaCard from "../MangaCard/MangaCard";
 
 const MangaList: React.FC = () => {
   const { mangas, loading, error } = useFetchMangas();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredMangas = mangas.filter((manga) =>
+    manga.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const uniqueFilteredMangas = filteredMangas.filter(
+    (manga, index, self) =>
+      self.findIndex((m) => m.id === manga.id) === index
+  );
 
   if (loading)
     return (
@@ -22,18 +32,34 @@ const MangaList: React.FC = () => {
     );
 
   return (
-    <div className="w-full px-6 py-8">
-      <h1 className="text-4xl font-bold text-gray-900 text-center mb-6">
+    <div className="w-full px-4 sm:px-8 py-6">
+      <h1 className="text-4xl font-bold text-gray-900 text-center mb-4">
         📚 Welcome to <span className="text-blue-500">MangaDex</span>
       </h1>
 
-      {/* Khung bao ngoài */}
-      <div className="bg-white shadow-lg rounded-lg p-6 border border-gray-200 w-full">
-        {/* Lưới hiển thị manga, căn giữa các item trong grid */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6 justify-items-center">
-          {mangas.map((manga) => (
-            <MangaCard key={manga.id} {...manga} />
-          ))}
+      {/* Thanh tìm kiếm */}
+      <div className="max-w-md mx-auto mb-6">
+        <input
+          type="text"
+          placeholder="Tìm kiếm manga..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Danh sách Manga */}
+      <div className="bg-white shadow-lg rounded-lg p-2 border border-gray-200 w-full">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-2 justify-items-center">
+          {uniqueFilteredMangas.length > 0 ? (
+            uniqueFilteredMangas.map((manga) => (
+              <MangaCard key={manga.id} {...manga} />
+            ))
+          ) : (
+            <p className="text-gray-500 col-span-full text-center py-6">
+              Không tìm thấy manga phù hợp.
+            </p>
+          )}
         </div>
       </div>
     </div>

@@ -1,8 +1,7 @@
 # Manga Recommendation System (Front-End)
 <p align="center">
   <img src="public/assets/MangaList.png" alt="MangaList" width="100%" style="display: block; margin-bottom: 20px;">
-  <img src="public/assets/MangaDetail.png" alt="MangaDetail" width="100%" style="display: block; margin-bottom: 20px;">
-  <img src="public/assets/RecommentManga.png" alt="RecommentManga" width="100%" style="display: block;">
+  <img src="public/assets/MangaDetail.png" alt="MangaDetail" width="100%" style="display: block;">
 </p>
 
 ## Giới Thiệu

@@ -86,14 +86,14 @@ const MangaDetail: React.FC = () => {
 
       {/* Manga Tương Đồng */}
       {manga.similar.length > 0 && (
-        <div className="w-full px-6 py-8">
+        <div className="w-full">
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-6">
             Manga Tương Đồng
           </h2>
 
           {/* Container cho Manga Tương Đồng */}
-          <div className="bg-white shadow-lg rounded-lg p-6 border border-gray-200 w-full">
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6 justify-items-center">
+          <div className="bg-white shadow-lg rounded-lg p-2 border border-gray-200 w-full">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-2 justify-items-center">
               {manga.similar.map((similarManga) => (
                 <MangaCard
                   key={similarManga.id}
