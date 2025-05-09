@@ -3,11 +3,18 @@
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import { useMangaDetail } from "./useMangaDetail";
-import MangaCard from "../MangaCard/MangaCard"; // Nhập MangaCard
+import SimilarMangaList from "../SimilarManga/SimilarMangaList";
+import { useMangaChapters } from "@/hooks/useMangaChapters";
+import MangaChapters from "@/components/MangaChapter/MangaChapters";
 
 const MangaDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { manga, error } = useMangaDetail(id || "");
+  const { chapters, error: chapterError, loading: chapterLoading } = useMangaChapters(id || "");
+
+  const uniqueFilteredMangas = manga?.similar?.filter(
+  (manga, index, self) => self.findIndex((m) => m.id === manga.id) === index
+) ?? [];  // Nếu manga?.similar là undefined thì trả về mảng trống
 
   if (error) return <p className="text-red-500 text-center">{error}</p>;
   if (!manga) return <p className="text-center">Loading...</p>;
@@ -43,7 +50,7 @@ const MangaDetail: React.FC = () => {
 
       {/* Grid Thông tin Manga (Chia 4 cột) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
-        {[ 
+        {[
           { label: "Status", value: manga.status },
           { label: "Year", value: manga.year },
           { label: "Author", value: manga.author },
@@ -84,30 +91,13 @@ const MangaDetail: React.FC = () => {
         </div>
       )}
 
-      {/* Manga Tương Đồng */}
-      {manga.similar.length > 0 && (
-        <div className="w-full">
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-6">
-            Manga Tương Đồng
-          </h2>
+      <MangaChapters
+        chapters={chapters}
+        loading={chapterLoading}
+        error={chapterError}
+      />
+      <SimilarMangaList similar={uniqueFilteredMangas} />
 
-          {/* Container cho Manga Tương Đồng */}
-          <div className="bg-white shadow-lg rounded-lg p-2 border border-gray-200 w-full">
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-2 justify-items-center">
-              {manga.similar.map((similarManga) => (
-                <MangaCard
-                  key={similarManga.id}
-                  id={similarManga.id}
-                  title={similarManga.title}
-                  status={similarManga.status}
-                  tags={similarManga.tags}
-                  coverUrl={similarManga.coverUrl}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
