@@ -1,5 +1,3 @@
-// components/ChapterNavigation.tsx
-
 "use client";
 
 import React from "react";
@@ -29,20 +27,23 @@ const ChapterNavigation: React.FC<ChapterNavigationProps> = ({
   const nextChapter = chapters[currentChapterIndex + 1];
 
   return (
-    <div className="flex justify-between mt-6 items-center">
-      {prevChapter && (
-        <Link href={`/chapter/${prevChapter.id}`}>
-          <button className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700">
+    <div className="flex flex-col md:flex-row items-center justify-between mt-6 gap-4">
+      {/* Nút Chapter trước */}
+      {prevChapter ? (
+        <Link href={`/chapter/${prevChapter.id}`} className="w-full md:w-auto">
+          <button className="w-full md:w-auto bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700">
             Chapter trước
           </button>
         </Link>
+      ) : (
+        <div className="w-full md:w-auto" />
       )}
 
-      {/* Dropdown để chọn chapter */}
+      {/* Dropdown chapter */}
       <select
         value={currentChapterId}
         onChange={(e) => onChapterChange(e.target.value)}
-        className="px-4 py-2 border rounded"
+        className="w-full md:w-auto px-4 py-2 border rounded"
       >
         {chapters.map((chapter) => (
           <option key={chapter.id} value={chapter.id}>
@@ -51,12 +52,15 @@ const ChapterNavigation: React.FC<ChapterNavigationProps> = ({
         ))}
       </select>
 
-      {nextChapter && (
-        <Link href={`/chapter/${nextChapter.id}`}>
-          <button className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700">
+      {/* Nút Chapter sau */}
+      {nextChapter ? (
+        <Link href={`/chapter/${nextChapter.id}`} className="w-full md:w-auto">
+          <button className="w-full md:w-auto bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700">
             Chapter sau
           </button>
         </Link>
+      ) : (
+        <div className="w-full md:w-auto" />
       )}
     </div>
   );
