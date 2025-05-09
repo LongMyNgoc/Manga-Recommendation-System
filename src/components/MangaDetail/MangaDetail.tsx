@@ -13,8 +13,8 @@ const MangaDetail: React.FC = () => {
   const { chapters, error: chapterError, loading: chapterLoading } = useMangaChapters(id || "");
 
   const uniqueFilteredMangas = manga?.similar?.filter(
-  (manga, index, self) => self.findIndex((m) => m.id === manga.id) === index
-) ?? [];  // Nếu manga?.similar là undefined thì trả về mảng trống
+    (manga, index, self) => self.findIndex((m) => m.id === manga.id) === index
+  ) ?? [];  // Nếu manga?.similar là undefined thì trả về mảng trống
 
   if (error) return <p className="text-red-500 text-center">{error}</p>;
   if (!manga) return <p className="text-center">Loading...</p>;
@@ -31,11 +31,13 @@ const MangaDetail: React.FC = () => {
           className="rounded-lg shadow-lg"
         />
         <div className="flex-1 text-center md:text-left">
-          <h1 className="text-4xl font-bold text-gray-900">{manga.title}</h1>
-          <p className="text-gray-700 mt-2">{manga.description}</p>
+          <h1 className="text-4xl font-bold text-gray-900 break-words">{manga.title}</h1>
+          <p className="text-gray-700 mt-2 max-h-40 overflow-y-auto whitespace-pre-line">
+            {manga.description}
+          </p>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-2 mt-4">
+          <div className="flex flex-wrap gap-2 mt-4 break-words max-w-full">
             {manga.tags.map((tag, index) => (
               <span
                 key={index}
