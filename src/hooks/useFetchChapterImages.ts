@@ -1,5 +1,8 @@
-// hooks/useFetchChapterImages.ts
 import { useState, useEffect } from "react";
+
+interface FetchResponse {
+  images: string[]; // Định nghĩa rõ kiểu dữ liệu trả về
+}
 
 const useFetchChapterImages = (id: string) => {
   const [images, setImages] = useState<string[]>([]);
@@ -12,10 +15,18 @@ const useFetchChapterImages = (id: string) => {
         const response = await fetch(
           `https://manga-recommendation-system-be.onrender.com/chapter/${id}/pages`
         );
-        const data = await response.json();
-        setImages(data);
+        
+        // Kiểm tra xem API trả về có lỗi không
+        if (!response.ok) {
+          throw new Error("Không thể tải dữ liệu. Vui lòng thử lại sau.");
+        }
+        
+        const data: FetchResponse = await response.json();
+        setImages(data.images);
       } catch (err) {
-        setError("Có lỗi xảy ra khi tải ảnh.");
+        // Kiểm tra và xử lý lỗi, đảm bảo err có kiểu đúng
+        const errorMessage = err instanceof Error ? err.message : "Có lỗi xảy ra khi tải ảnh.";
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }

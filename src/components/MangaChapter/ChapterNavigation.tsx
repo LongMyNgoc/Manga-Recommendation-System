@@ -3,11 +3,18 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+interface Chapter {
+  id: string;
+  chapter: string;
+  title: string;
+  volume: string;
+  createdAt: string;
+}
+
 interface ChapterNavigationProps {
-  chapters: any[];
+  chapters: Chapter[];
   currentChapterId: string;
   onChapterChange: (chapterId: string) => void;
 }
