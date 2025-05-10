@@ -7,6 +7,7 @@ import SimilarMangaList from "../SimilarManga/SimilarMangaList";
 import { useMangaChapters } from "@/hooks/useMangaChapters";
 import MangaChapters from "@/components/MangaChapter/MangaChapters";
 import BackButton from "../common/BackButton";
+import { Loading } from "../common/Loading";
 
 const MangaDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,7 +19,7 @@ const MangaDetail: React.FC = () => {
   ) ?? [];  // Nếu manga?.similar là undefined thì trả về mảng trống
 
   if (error) return <p className="text-red-500 text-center">{error}</p>;
-  if (!manga) return <p className="text-center">Loading...</p>;
+  if (!manga) return <Loading />;
 
   return (
     <div className="w-full min-h-screen p-6 space-y-8 bg-gray-100">

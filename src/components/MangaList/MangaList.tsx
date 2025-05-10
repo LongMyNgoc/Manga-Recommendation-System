@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import useFetchMangas from "./useFetchMangas";
 import MangaCard from "../MangaCard/MangaCard";
+import { Loading } from "../common/Loading";
 
 const MangaList: React.FC = () => {
   const { mangas, loading, error } = useFetchMangas();
@@ -20,9 +21,7 @@ const MangaList: React.FC = () => {
 
   if (loading)
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <p className="text-xl font-semibold text-gray-700">Loading...</p>
-      </div>
+      <Loading />
     );
 
   if (error)

@@ -7,6 +7,7 @@ import { useParams, useRouter } from "next/navigation";
 import useFetchChapterImages from "@/hooks/useFetchChapterImages";
 import ChapterNavigation from "@/components/MangaChapter/ChapterNavigation";
 import BackButton from "@/components/common/BackButton";
+import { Loading } from "@/components/common/Loading";
 
 interface Chapter {
     id: string;
@@ -36,7 +37,7 @@ const ChapterPage = () => {
     }, []);
 
     if (loading) {
-        return <div>Đang tải...</div>;
+        return <Loading />;
     }
 
     if (error) {
