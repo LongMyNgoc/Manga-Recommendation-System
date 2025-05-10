@@ -6,6 +6,7 @@ import { useMangaDetail } from "./useMangaDetail";
 import SimilarMangaList from "../SimilarManga/SimilarMangaList";
 import { useMangaChapters } from "@/hooks/useMangaChapters";
 import MangaChapters from "@/components/MangaChapter/MangaChapters";
+import BackButton from "../common/BackButton";
 
 const MangaDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -21,6 +22,7 @@ const MangaDetail: React.FC = () => {
 
   return (
     <div className="w-full min-h-screen p-6 space-y-8 bg-gray-100">
+      <BackButton to="/" label="Trở về trang chủ" />
       {/* Tiêu đề + Ảnh bìa + Tags */}
       <div className="flex flex-col md:flex-row items-center gap-6 bg-white p-6 rounded-lg shadow-md w-full">
         <Image
@@ -59,8 +61,22 @@ const MangaDetail: React.FC = () => {
           { label: "Artist", value: manga.artist },
           { label: "Publication Demographic", value: manga.publicationDemographic },
           { label: "Original Language", value: manga.originalLanguage },
-          { label: "Created At", value: manga.createdAt },
-          { label: "Updated At", value: manga.updatedAt },
+          {
+            label: "Created At",
+            value: new Date(manga.createdAt).toLocaleDateString("vi-VN", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            }),
+          },
+          {
+            label: "Updated At",
+            value: new Date(manga.updatedAt).toLocaleDateString("vi-VN", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            }),
+          },
         ].map((item, index) => (
           <div
             key={index}
@@ -72,31 +88,11 @@ const MangaDetail: React.FC = () => {
         ))}
       </div>
 
-      {/* External Links */}
-      {manga.externalLinks.length > 0 && (
-        <div className="bg-gray-100 p-6 rounded-lg shadow-md w-full">
-          <h3 className="text-gray-700 font-semibold">External Links:</h3>
-          <ul className="space-y-2 mt-2">
-            {manga.externalLinks.map((link, index) => (
-              <li key={index}>
-                <a
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
-                >
-                  {link}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
       <MangaChapters
         chapters={chapters}
         loading={chapterLoading}
         error={chapterError}
+        mangaId={id}
       />
       <SimilarMangaList similar={uniqueFilteredMangas} />
 

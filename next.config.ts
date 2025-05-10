@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         hostname: 'uploads.mangadex.org',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+        pathname: '/**',
+      },
     ],
   },
 };

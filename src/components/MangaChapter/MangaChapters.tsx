@@ -15,14 +15,16 @@ interface MangaChaptersProps {
   chapters: Chapter[];
   loading: boolean;
   error: string | null;
+  mangaId: string;
 }
 
-const MangaChapters: React.FC<MangaChaptersProps> = ({ chapters, loading, error }) => {
+const MangaChapters: React.FC<MangaChaptersProps> = ({ chapters, loading, error, mangaId }) => {
   const [showAll, setShowAll] = useState(false);
   const MAX_VISIBLE = 5; // Số lượng chapter hiển thị ban đầu
 
-  const handleChapterClick = (chapters: Chapter[]) => {
+  const handleChapterClick = (chapters: Chapter[], mangaId: string) => {
     localStorage.setItem("chaptersList", JSON.stringify(chapters));
+    localStorage.setItem("selectedMangaId", mangaId);
   };
 
   const visibleChapters = showAll ? chapters : chapters.slice(0, MAX_VISIBLE);
@@ -44,7 +46,7 @@ const MangaChapters: React.FC<MangaChaptersProps> = ({ chapters, loading, error 
               <li key={chapter.id} className="border-b pb-2">
                 <Link
                   href={`/chapter/${chapter.id}`}
-                  onClick={() => handleChapterClick(chapters)}
+                  onClick={() => handleChapterClick(chapters, mangaId)}
                   className="flex justify-between items-center hover:text-blue-600 transition"
                 >
                   <div>

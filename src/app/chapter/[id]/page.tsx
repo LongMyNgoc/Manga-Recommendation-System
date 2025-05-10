@@ -6,13 +6,14 @@ import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import useFetchChapterImages from "@/hooks/useFetchChapterImages";
 import ChapterNavigation from "@/components/MangaChapter/ChapterNavigation";
+import BackButton from "@/components/common/BackButton";
 
 interface Chapter {
-  id: string;
-  chapter: string;
-  title: string;
-  volume: string;
-  createdAt: string;
+    id: string;
+    chapter: string;
+    title: string;
+    volume: string;
+    createdAt: string;
 }
 
 const ChapterPage = () => {
@@ -20,12 +21,17 @@ const ChapterPage = () => {
     const [chapters, setChapters] = useState<Chapter[]>([]);
     const { images, loading, error } = useFetchChapterImages(id);
     const [selectedChapter, setSelectedChapter] = useState(id);
+    const [selectedMangaId, setSelectedMangaId] = useState<string | null>(null);
     const router = useRouter();  // Hook điều hướng
 
     useEffect(() => {
         const savedChapters = localStorage.getItem("chaptersList");
+        const savedMangaId = localStorage.getItem("selectedMangaId");
         if (savedChapters) {
             setChapters(JSON.parse(savedChapters));
+        }
+        if (savedMangaId) {
+            setSelectedMangaId(savedMangaId);
         }
     }, []);
 
@@ -46,6 +52,13 @@ const ChapterPage = () => {
 
     return (
         <div className="w-full bg-white p-6 rounded-lg shadow-md">
+            {selectedMangaId && (
+                <div className="mb-4">
+                    <BackButton to={`/manga/${selectedMangaId}`} label="Quay lại trang Manga" />
+                </div>
+            )}
+
+
             <ChapterNavigation
                 chapters={chapters}
                 currentChapterId={selectedChapter}
